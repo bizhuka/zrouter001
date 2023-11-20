@@ -1,0 +1,19 @@
+<mvc:View
+   controllerName="zrouter001.controller.NotFound"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <MessagePage
+      title="{i18n>NotFound}"
+      text="{i18n>NotFound.text}"
+      description="{i18n>NotFound.description}"
+      showNavButton="true"
+	  navButtonPress="onNavBack"
+        />
+    <!-- <IllustratedMessage
+		title="{i18n>NotFound}"
+		illustrationType="sapIllus-Connection"
+		description="{i18n>NotFound.description}">
+        <additionalContent>
+        </additionalContent>
+    </IllustratedMessage> -->
+</mvc:View>

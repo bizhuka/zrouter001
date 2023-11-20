@@ -1,0 +1,186 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "zrouter001",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [
+				""
+			],
+			"fallbackLocale": ""
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"employeeRemote": {
+				"uri": "/here/goes/your/serviceUrl/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "zrouter001.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.120.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"handleValidation": true,
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "zrouter001.i18n.i18n",
+					"supportedLocales": [
+						""
+					],
+					"fallbackLocale": ""
+				}
+			},
+			"": {
+				"dataSource": "employeeRemote"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "zrouter001.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "appHome",
+					"target": "home"
+				},
+				{
+					"pattern": "employees",
+					"name": "employeeList",
+					"target": "employees"
+				},
+				{
+					"pattern": "employees/overview:?query:",
+					"name": "employeeOverview",
+					"target": ["employeeOverviewTop", "employeeOverviewContent"]
+				},
+				{
+					"pattern": "employees/{employeeId}/resume:?query:",
+					"name": "employeeResume",
+					"target": "employeeResume"
+				},				
+				{
+					"pattern": "employees/{employeeId}",
+					"name": "employee",
+					"target": "employee"
+				}
+			],
+			"targets": {
+				"main": { "viewId": "main", "viewName": "Main" },
+
+				"home": {
+					"id": "home",
+					"name": "Home",
+					"level": 1
+				},
+
+				"employees": {
+					"id": "employeeList",
+					"path": "zrouter001.view.employee",
+					"name": "EmployeeList",
+					"level" : 2
+				},				
+				"employee": {
+					"id": "employee",
+					"name": "employee.Employee",
+					"level" : 3
+				},				
+				"employeeResume": {
+					"id": "resume",
+					"name": "employee.Resume",
+					"level" : 4,
+					"transition": "flip"
+				},
+				"resumeTabHobbies": {
+					"id": "resumeHobbies",
+					"parent": "employeeResume",
+					"path": "zrouter001.view.employee",
+					"name": "ResumeHobbies",
+					"controlId": "hobbiesTab",
+					"controlAggregation": "content"
+				},
+				"resumeTabNotes": {
+					"id": "resumeNotes",
+					"parent": "employeeResume",
+					"path": "zrouter001.view.employee",
+					"name": "ResumeNotes",
+					"controlId": "notesTab",
+					"controlAggregation": "content"
+				},
+				"notFound": {
+					"id": "notFound",
+					"name": "NotFound",
+					"transition": "show"
+				},
+				
+				"employeeOverview": {
+					"id": "employeeOverview",
+					"path": "zrouter001.view.employee.overview",
+					"name": "EmployeeOverview",
+					"level" : 2
+				},
+				"employeeOverviewTop": {
+					"id": "employeeOverviewTop",
+					"parent": "employeeOverview",
+					"path": "zrouter001.view.employee.overview",
+					"name": "EmployeeOverviewTop",
+					"controlId": "EmployeeOverviewParent",
+					"controlAggregation": "content"
+				},
+				"employeeOverviewContent": {
+					"id": "employeeOverviewContent",
+					"parent": "employeeOverview",
+					"path": "zrouter001.view.employee.overview",
+					"name": "EmployeeOverviewContent",
+					"controlId": "EmployeeOverviewParent",
+					"controlAggregation": "content"
+				}
+			}
+		}
+	}
+}
